@@ -11,6 +11,7 @@ chrome.action.onClicked.addListener(async (tab) => {
   if (tab.url.startsWith(extensions) || tab.url.startsWith(w3schools)) {
     // Retrieve the action badge to check if the extension is 'ON' or 'OFF'
     const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
+    console.log(prevState)
     // Next state will always be the opposite
     const nextState = prevState === "ON" ? "OFF" : "ON";
 
@@ -23,13 +24,13 @@ chrome.action.onClicked.addListener(async (tab) => {
       console.log("if nextstate TEST")
       // Insert the CSS file when the user turns the extension on
       await chrome.scripting.insertCSS({
-        files: ["styles.css"],
+        files: ["focus-mode-outdated.css"],
         target: { tabId: tab.id },
       });
     } else if (nextState === "OFF") {
       // Remove the CSS file when the user turns the extension off
       await chrome.scripting.removeCSS({
-        files: ["styles.css"],
+        files: ["focus-mode-outdated.css"],
         target: { tabId: tab.id },
       });
     }
